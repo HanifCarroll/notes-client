@@ -3,7 +3,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import styles from './styles.module.scss';
 
 export const NewNote = () => {
-  const containerElement = useRef(null);
+  const containerElement = useRef<HTMLDivElement>(null);
   const [ isNewNote, setIsNewNote ] = useState(false);
   const [ title, setTitle ] = useState('');
   const [ content, setContent ] = useState('');
@@ -11,7 +11,7 @@ export const NewNote = () => {
   const handleTextAreaClick = () => setIsNewNote(true);
 
   const handleClickOutside = useCallback((e) => {
-    if (containerElement.current.contains(e.target)) {
+    if (containerElement.current && containerElement.current.contains(e.target)) {
       return;
     }
 
@@ -48,9 +48,9 @@ export const NewNote = () => {
             />
             <TextareaAutosize
                 className={styles.contentInput}
-                style={{ borderRadius: isNewNote ? null : "4px" }}
+                style={{ borderRadius: isNewNote ? undefined : "4px" }}
                 value={content}
-                onChange={(e) => setContent(e.target.value)}
+                onChange={(e) => setContent(e.currentTarget.value)}
                 onClick={handleTextAreaClick}
                 placeholder="Write a note..."
             />

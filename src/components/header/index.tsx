@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 
-export const Header = props => {
+export const Header = () => {
   const [searchValue, setSearchValue ] = useState('');
   return (
       <header className={styles.header}>
