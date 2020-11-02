@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Masonry from 'react-masonry-component';
 import styles from "./styles.module.scss";
-import { RootState } from '../../redux/reducers';
+import { RootState } from 'src/redux/reducers';
 import { Note } from '..';
 
 const NoNotes = () => (
