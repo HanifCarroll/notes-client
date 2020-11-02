@@ -1,6 +1,5 @@
 import React from 'react';
-import { Header } from './components/header';
-import NewNote from './components/new-note';
+import { Header, NewNote } from './components';
 
 function App() {
   return (

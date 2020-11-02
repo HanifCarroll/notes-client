@@ -5,7 +5,7 @@ import { addNote } from 'src/redux/notesSlice';
 import styles from './styles.module.scss';
 
 
-const NewNote = () => {
+export const NewNote = () => {
   const dispatch = useDispatch();
 
   const containerElement = useRef<HTMLDivElement>(null);
@@ -65,5 +65,3 @@ const NewNote = () => {
       </div>
   );
 }
-
-export default NewNote;
