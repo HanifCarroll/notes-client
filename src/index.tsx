@@ -3,13 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import "./index.scss";
 import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import rootReducer from './redux/reducers';
+import store from 'src/redux/store';
 
-const store = configureStore({
-  reducer: rootReducer,
-});
 
 ReactDOM.render(
   <React.StrictMode>
