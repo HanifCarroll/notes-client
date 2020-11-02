@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextareaAutosize from "react-autosize-textarea";
-import { addNote } from '../../redux/notesSlice';
+import { addNote } from 'src/redux/notesSlice';
 import styles from './styles.module.scss';
-import { RootState } from '../../redux/reducers';
+import { RootState } from 'src/redux/reducers';
 
 
 const NewNote = () => {
