@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import TextareaAutosize from "react-autosize-textarea";
 import { addNote } from 'src/redux/notesSlice';
 import styles from './styles.module.scss';
+import { v4 as uuid } from 'uuid';
 
 
 export const NewNote = () => {
@@ -14,7 +15,7 @@ export const NewNote = () => {
   const [ content, setContent ] = useState('');
 
   const saveNote = useCallback(() => {
-    dispatch(addNote({ id: '1', title, content }));
+    dispatch(addNote({ id: uuid(), title, content }));
     alert('Note saved: ' + title + ' ' + content);
     setTitle('');
     setContent('')
