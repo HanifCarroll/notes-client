@@ -17,6 +17,7 @@ export const NotesList = () => {
     return (
       <Note
         key={note.id}
+        id={note.id}
         title={note.title}
         content={note.content}
       />

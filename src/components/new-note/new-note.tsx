@@ -16,7 +16,6 @@ export const NewNote = () => {
 
   const saveNote = useCallback(() => {
     dispatch(addNote({ id: uuid(), title, content }));
-    alert('Note saved: ' + title + ' ' + content);
     setTitle('');
     setContent('')
     setIsNewNote(false);

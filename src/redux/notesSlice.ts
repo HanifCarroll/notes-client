@@ -10,6 +10,10 @@ type SearchValue = {
   searchValue: string;
 };
 
+type DeleteNote = {
+  noteId: string;
+};
+
 type NotesState = {
   notes: Note[];
   searchValue: string;
@@ -33,9 +37,13 @@ const notesSlice = createSlice({
     onSearchValueChange(state, action: PayloadAction<SearchValue>) {
       state.searchValue = action.payload.searchValue;
     },
-  }
+    onDeleteNote(state, action: PayloadAction<DeleteNote>) {
+      const { noteId } = action.payload;
+      state.notes = state.notes.filter(note => note.id !== noteId);
+    },
+  },
 });
 
-export const { addNote, onSearchValueChange } = notesSlice.actions;
+export const { addNote, onSearchValueChange, onDeleteNote } = notesSlice.actions;
 
 export default notesSlice.reducer;
