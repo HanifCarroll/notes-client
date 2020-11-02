@@ -1,12 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TextareaAutosize from "react-autosize-textarea";
+import { addNote } from '../../redux/notesSlice';
 import styles from './styles.module.scss';
+import { RootState } from '../../redux/reducers';
 
-export const NewNote = () => {
+
+const NewNote = () => {
+  const dispatch = useDispatch();
+  const notes = useSelector((state: RootState) => state.notes);
+
   const containerElement = useRef<HTMLDivElement>(null);
   const [ isNewNote, setIsNewNote ] = useState(false);
   const [ title, setTitle ] = useState('');
   const [ content, setContent ] = useState('');
+
+  const saveNote = useCallback(() => {
+    dispatch(addNote({ id: '1', title, content }));
+    alert('Note saved: ' + title + ' ' + content);
+    setTitle('');
+    setContent('')
+    setIsNewNote(false);
+  }, [dispatch, content, title]);
 
   const handleTextAreaClick = () => setIsNewNote(true);
 
@@ -20,14 +35,7 @@ export const NewNote = () => {
 
     // Otherwise, save the note.
     if (title || content) { saveNote(); }
-  }, [title, content]);
-
-  const saveNote = () => {
-    alert('Note saved');
-    setTitle('');
-    setContent('')
-    setIsNewNote(false);
-  }
+  }, [title, content, saveNote]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -59,3 +67,5 @@ export const NewNote = () => {
       </div>
   );
 }
+
+export default NewNote;
