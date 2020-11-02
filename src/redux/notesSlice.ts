@@ -6,12 +6,20 @@ type Note = {
   content: string;
 };
 
+type SearchValue = {
+  searchValue: string;
+};
+
 type NotesState = {
   notes: Note[];
+  searchValue: string;
+  filteredNotes: Note[];
 };
 
 const initialState: NotesState = {
-  notes: []
+  notes: [],
+  searchValue: '',
+  filteredNotes: [],
 };
 
 const notesSlice = createSlice({
@@ -21,10 +29,13 @@ const notesSlice = createSlice({
     addNote(state, action: PayloadAction<Note>) {
       const { id, title, content } = action.payload;
       state.notes.push({ id, title, content });
-    }
+    },
+    onSearchValueChange(state, action: PayloadAction<SearchValue>) {
+      state.searchValue = action.payload.searchValue;
+    },
   }
 });
 
-export const { addNote } = notesSlice.actions;
+export const { addNote, onSearchValueChange } = notesSlice.actions;
 
 export default notesSlice.reducer;

@@ -1,14 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TextareaAutosize from "react-autosize-textarea";
 import { addNote } from 'src/redux/notesSlice';
 import styles from './styles.module.scss';
-import { RootState } from 'src/redux/reducers';
 
 
 const NewNote = () => {
   const dispatch = useDispatch();
-  const notes = useSelector((state: RootState) => state.notes);
 
   const containerElement = useRef<HTMLDivElement>(null);
   const [ isNewNote, setIsNewNote ] = useState(false);
