@@ -23,14 +23,14 @@ type NotesState = {
   notes: Note[];
   searchValue: string;
   filteredNotes: Note[];
-  selectedNoteId: string;
+  selectedNote: Note | null;
 };
 
 const initialState: NotesState = {
   notes: [],
   searchValue: '',
   filteredNotes: [],
-  selectedNoteId: '',
+  selectedNote: null,
 };
 
 const notesSlice = createSlice({
@@ -41,6 +41,14 @@ const notesSlice = createSlice({
       const { id, title, content } = action.payload;
       state.notes.push({ id, title, content });
     },
+    saveNote(state, action: PayloadAction<Note>) {
+      const { id, title, content } = action.payload;
+      const noteToSave = state.notes.find(note => note.id === id);
+      if (!noteToSave) { return; }
+
+      noteToSave.title = title;
+      noteToSave.content = content;
+    },
     onSearchValueChange(state, action: PayloadAction<SearchValue>) {
       state.searchValue = action.payload.searchValue;
     },
@@ -49,10 +57,10 @@ const notesSlice = createSlice({
       state.notes = state.notes.filter(note => note.id !== noteId);
     },
     onCloseNote(state) {
-      state.selectedNoteId = '';
+      state.selectedNote = null;
     },
-    onEditNote(state, action: PayloadAction<EditNote>) {
-      state.selectedNoteId = action.payload.noteId;
+    onEditNote(state, action: PayloadAction<Note>) {
+      state.selectedNote = action.payload;
     },
   },
 });

@@ -4,3 +4,4 @@ export * from './notes-list/notes-list';
 export * from './note/note';
 export * from './delete-note-button/delete-note-button';
 export * from './modal/modal';
+export * from './edite-note/edit-note';

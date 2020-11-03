@@ -12,7 +12,11 @@ export const Note = ({
                        onContentClick,
 }) => {
   const dispatch = useDispatch();
-  const editNote = () => dispatch(onEditNote({ noteId: id, selectedField: 'content' }));
+  const editNote = () => dispatch(onEditNote({
+    id,
+    title,
+    content,
+  }));
   const deleteNote = () => dispatch(onDeleteNote({ noteId: id }));
 
   return (

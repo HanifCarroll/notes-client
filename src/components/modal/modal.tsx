@@ -5,10 +5,11 @@ import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/reducers';
 import { onCloseNote } from 'src/redux/notesSlice';
+import { EditNote } from '..';
 
 export const ResponsiveModal = props => {
   const dispatch = useDispatch();
-  const selectedNoteId = useSelector((state: RootState) => state.notes.selectedNoteId);
+  const selectedNote = useSelector((state: RootState) => state.notes.selectedNote);
 
   const onClose = useCallback(() => dispatch(onCloseNote()), []);
 
@@ -17,10 +18,11 @@ export const ResponsiveModal = props => {
       showCloseIcon={false}
       animationDuration={300}
       classNames={{ modal: styles.modal, overlay: styles.overlay }}
-      open={!!selectedNoteId}
+      open={selectedNote}
       onClose={onClose}
       {...props}
     >
+      <EditNote />
     </Modal>
   );
 };
