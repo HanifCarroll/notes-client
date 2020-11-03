@@ -14,16 +14,23 @@ type DeleteNote = {
   noteId: string;
 };
 
+type EditNote = {
+  noteId: string;
+  selectedField: string;
+}
+
 type NotesState = {
   notes: Note[];
   searchValue: string;
   filteredNotes: Note[];
+  selectedNoteId: string;
 };
 
 const initialState: NotesState = {
   notes: [],
   searchValue: '',
   filteredNotes: [],
+  selectedNoteId: '',
 };
 
 const notesSlice = createSlice({
@@ -41,9 +48,21 @@ const notesSlice = createSlice({
       const { noteId } = action.payload;
       state.notes = state.notes.filter(note => note.id !== noteId);
     },
+    onCloseNote(state) {
+      state.selectedNoteId = '';
+    },
+    onEditNote(state, action: PayloadAction<EditNote>) {
+      state.selectedNoteId = action.payload.noteId;
+    },
   },
 });
 
-export const { addNote, onSearchValueChange, onDeleteNote } = notesSlice.actions;
+export const {
+  addNote,
+  onSearchValueChange,
+  onDeleteNote,
+  onCloseNote,
+  onEditNote,
+} = notesSlice.actions;
 
 export default notesSlice.reducer;

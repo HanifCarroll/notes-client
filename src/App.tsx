@@ -1,16 +1,16 @@
 import React from 'react';
-import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import { ThemeProvider } from '@chakra-ui/core';
 import { AppTheme } from './theme';
-import { Header, NewNote, NotesList } from './components';
+import { Header, ResponsiveModal, NewNote, NotesList } from './components';
 
 function App() {
   return (
     <ThemeProvider theme={AppTheme}>
-      <CSSReset />
       <div className="App">
         <Header />
         <NewNote />
         <NotesList />
+        <ResponsiveModal />
       </div>
     </ThemeProvider>
   );

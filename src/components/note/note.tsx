@@ -1,17 +1,18 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
 import styles from './styles.module.scss';
-import { onDeleteNote } from 'src/redux/notesSlice';
+import { onDeleteNote, onEditNote } from 'src/redux/notesSlice';
 import { DeleteButton } from '..';
 
 export const Note = ({
                        id,
                        title,
                        content,
-                       onTitleClick = () => {},
-                       onContentClick = () => {},
+                       onTitleClick,
+                       onContentClick,
 }) => {
   const dispatch = useDispatch();
+  const editNote = () => dispatch(onEditNote({ noteId: id, selectedField: 'content' }));
   const deleteNote = () => dispatch(onDeleteNote({ noteId: id }));
 
   return (
@@ -26,7 +27,7 @@ export const Note = ({
 
       <div className={styles.buttonContainer}>
         <DeleteButton deleteNote={deleteNote}/>
-        <button>Edit</button>
+        <button onClick={editNote}>Edit</button>
       </div>
     </div>
 )
