@@ -17,6 +17,8 @@ export const NotesList = () => {
 
   const onEdit = (note) =>
     dispatch(onEditNote({ ...note }));
+  const onTitleEdit = (note) => () => dispatch(onEdit({ note: { ...note }, selectedField: 'title' }));
+  const onContentEdit = (note) => () => dispatch(onEdit({ note: { ...note }, selectedField: 'content' }));
   const notes = notesData.map(note => {
     return (
       <Note
@@ -24,8 +26,8 @@ export const NotesList = () => {
         id={note.id}
         title={note.title}
         content={note.content}
-        onTitleClick={() => onEdit({ ...note })}
-        onContentClick={() => onEdit({ ...note })}
+        onTitleClick={onTitleEdit(note)}
+        onContentClick={onContentEdit(note)}
       />
     );
   });

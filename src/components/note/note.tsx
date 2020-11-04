@@ -13,9 +13,8 @@ export const Note = ({
 }) => {
   const dispatch = useDispatch();
   const editNote = () => dispatch(onEditNote({
-    id,
-    title,
-    content,
+    note: { id, title, content },
+    selectedField: 'content',
   }));
   const deleteNote = () => dispatch(onDeleteNote({ noteId: id }));
 
@@ -34,5 +33,5 @@ export const Note = ({
         <button onClick={editNote}>Edit</button>
       </div>
     </div>
-)
+  );
 }
