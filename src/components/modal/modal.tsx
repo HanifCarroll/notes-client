@@ -4,22 +4,26 @@ import 'react-responsive-modal/styles.css';
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/reducers';
-import { onCloseNote } from 'src/redux/notesSlice';
+import { saveNote } from 'src/redux/notesSlice';
 import { EditNote } from '..';
 
 export const ResponsiveModal = props => {
   const dispatch = useDispatch();
   const selectedNote = useSelector((state: RootState) => state.notes.selectedNote);
 
-  const onClose = useCallback(() => dispatch(onCloseNote()), []);
+  const onSave = useCallback(() => dispatch(saveNote({
+    id: selectedNote.id,
+    title: selectedNote.title,
+    content: selectedNote.content,
+  })), [dispatch, selectedNote.id, selectedNote.title, selectedNote.content]);
 
   return (
     <Modal
       showCloseIcon={false}
       animationDuration={300}
       classNames={{ modal: styles.modal, overlay: styles.overlay }}
-      open={selectedNote}
-      onClose={onClose}
+      open={selectedNote.id}
+      onClose={onSave}
       {...props}
     >
       <EditNote />

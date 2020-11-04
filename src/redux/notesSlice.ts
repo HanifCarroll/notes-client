@@ -14,23 +14,24 @@ type DeleteNote = {
   noteId: string;
 };
 
-type EditNote = {
-  noteId: string;
-  selectedField: string;
+type NoteEdit = {
+  field: string;
+  value: string;
 }
 
 type NotesState = {
   notes: Note[];
   searchValue: string;
   filteredNotes: Note[];
-  selectedNote: Note | null;
+  selectedNote: Note;
 };
 
+const defaultNote: Note = { id: '', title: '', content: '' };
 const initialState: NotesState = {
   notes: [],
   searchValue: '',
   filteredNotes: [],
-  selectedNote: null,
+  selectedNote: { ...defaultNote },
 };
 
 const notesSlice = createSlice({
@@ -48,6 +49,7 @@ const notesSlice = createSlice({
 
       noteToSave.title = title;
       noteToSave.content = content;
+      state.selectedNote = { ...defaultNote };
     },
     onSearchValueChange(state, action: PayloadAction<SearchValue>) {
       state.searchValue = action.payload.searchValue;
@@ -56,21 +58,27 @@ const notesSlice = createSlice({
       const { noteId } = action.payload;
       state.notes = state.notes.filter(note => note.id !== noteId);
     },
-    onCloseNote(state) {
-      state.selectedNote = null;
-    },
     onEditNote(state, action: PayloadAction<Note>) {
       state.selectedNote = action.payload;
+    },
+    onSelectedNoteEdit(state, action: PayloadAction<NoteEdit>) {
+      if (action.payload.field === 'title') {
+        state.selectedNote.title = action.payload.value;
+      }
+      if (action.payload.field === 'content') {
+        state.selectedNote.content = action.payload.value;
+      }
     },
   },
 });
 
 export const {
   addNote,
+  saveNote,
   onSearchValueChange,
   onDeleteNote,
-  onCloseNote,
   onEditNote,
+  onSelectedNoteEdit,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;
