@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import styles from './styles.module.scss';
 import { onDeleteNote, onEditNote } from 'src/redux/notesSlice';
 import { DeleteButton } from '..';
+import { Icon, IconButton } from '@chakra-ui/core';
 
 export const Note = ({
                        id,
@@ -30,7 +31,7 @@ export const Note = ({
 
       <div className={styles.buttonContainer}>
         <DeleteButton deleteNote={deleteNote}/>
-        <button onClick={editNote}>Edit</button>
+        <button onClick={editNote}><Icon name='edit'/></button>
       </div>
     </div>
   );

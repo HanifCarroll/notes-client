@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button,
+  Button, Icon,
   Popover,
   PopoverArrow, PopoverBody,
   PopoverCloseButton,
@@ -12,7 +12,7 @@ import {
 export const DeleteButton = ({ deleteNote }) => (
   <Popover usePortal>
     <PopoverTrigger>
-      <button>Delete</button>
+      <button><Icon name='delete' /></button>
     </PopoverTrigger>
     <PopoverContent zIndex={4}>
       <PopoverArrow />
