@@ -1,8 +1,10 @@
 .modal {
-  //width: 80vw;
   top: 20%;
   border-radius: 4px;
   padding: 0;
+  overflow-y: scroll;
+  max-height: 60vh;
+  overflow-x: hidden;
 
   @media screen and (min-width: 750px) {
     width: 60vw;
