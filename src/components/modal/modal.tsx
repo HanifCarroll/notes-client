@@ -7,7 +7,7 @@ import { RootState } from 'src/redux/reducers';
 import { saveNote } from 'src/redux/notesSlice';
 import { EditNote } from '..';
 
-export const ResponsiveModal = props => {
+export const EditNoteModal = props => {
   const dispatch = useDispatch();
   const selectedNote = useSelector((state: RootState) => state.notes.selectedNote);
 

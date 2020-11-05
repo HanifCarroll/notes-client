@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from '@chakra-ui/core';
 import { AppTheme } from './theme';
-import { Header, ResponsiveModal, NewNote, NotesList } from './components';
+import { Header, EditNoteModal, NewNote, NotesList } from './components';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Header />
         <NewNote />
         <NotesList />
-        <ResponsiveModal />
+        <EditNoteModal />
       </div>
     </ThemeProvider>
   );

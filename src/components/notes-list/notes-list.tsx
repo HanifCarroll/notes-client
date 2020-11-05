@@ -1,10 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Masonry from 'react-masonry-component';
+// import Masonry from 'react-masonry-component';
+import Masonry from "react-masonry-css";
 import styles from "./styles.module.scss";
 import { RootState } from 'src/redux/reducers';
 import { Note } from '..';
 import { onEditNote } from 'src/redux/notesSlice';
+
+const breakpointColumns = {
+  default: 4,
+  1100: 3,
+  700: 2,
+  600: 1
+};
 
 const NoNotes = () => (
   <p className={styles.noNotes}>No notes!</p>
@@ -32,5 +40,13 @@ export const NotesList = () => {
     );
   });
 
-  return <Masonry>{notes}</Masonry>;
+  return (
+    <Masonry
+      breakpointCols={breakpointColumns}
+      className={styles.grid}
+      columnClassName={styles.column}
+    >
+    {notes}
+  </Masonry>
+  );
 }
