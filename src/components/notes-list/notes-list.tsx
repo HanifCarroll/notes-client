@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Masonry from 'react-masonry-component';
 import Masonry from "react-masonry-css";
 import styles from "./styles.module.scss";
 import { RootState } from 'src/redux/reducers';
