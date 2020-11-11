@@ -4,7 +4,7 @@ import Masonry from "react-masonry-css";
 import styles from "./styles.module.scss";
 import { RootState } from 'src/redux/reducers';
 import { Note } from '..';
-import { NoteType, onEditNote, setNotes } from 'src/redux/notesSlice';
+import { onEditNote, setNotes } from 'src/redux/notesSlice';
 import { getNotesFromLocalStorage } from 'src/helper';
 
 const breakpointColumns = {
@@ -28,7 +28,7 @@ export const NotesList = () => {
       localStorageNotes.current = loadedNotes;
       dispatch(setNotes(localStorageNotes.current));
     }
-  }, [])
+  }, [dispatch])
 
   if (!notesData.length && !localStorageNotes.current.length) { return <NoNotes />}
 
