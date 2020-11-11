@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Masonry from "react-masonry-css";
 import styles from "./styles.module.scss";
 import { RootState } from 'src/redux/reducers';
 import { Note } from '..';
-import { onEditNote } from 'src/redux/notesSlice';
+import { NoteType, onEditNote, setNotes } from 'src/redux/notesSlice';
+import { getNotesFromLocalStorage } from 'src/helper';
 
 const breakpointColumns = {
   default: 4,
@@ -19,8 +20,17 @@ const NoNotes = () => (
 
 export const NotesList = () => {
   const dispatch = useDispatch();
-  const notesData = useSelector((state: RootState) => state.notes.notes);
-  if (!notesData.length) { return <NoNotes />}
+  let notesData = useSelector((state: RootState) => state.notes.notes);
+  const localStorageNotes = useRef([]);
+  useEffect(() => {
+    const loadedNotes = getNotesFromLocalStorage();
+    if (loadedNotes.length) {
+      localStorageNotes.current = loadedNotes;
+      dispatch(setNotes(localStorageNotes.current));
+    }
+  }, [])
+
+  if (!notesData.length && !localStorageNotes.current.length) { return <NoNotes />}
 
   const onEdit = (note) =>
     dispatch(onEditNote({ ...note }));
@@ -43,7 +53,7 @@ export const NotesList = () => {
     <Masonry
       breakpointCols={breakpointColumns}
       className={styles.grid}
-      columnClassName={styles.column}
+      columnClassName=''
     >
     {notes}
   </Masonry>

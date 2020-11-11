@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Note = {
+export type NoteType = {
   id: string;
   title: string;
   content: string;
@@ -15,7 +15,7 @@ type DeleteNote = {
 };
 
 type EditNote = {
-  note: Note;
+  note: NoteType;
   selectedField: string;
 };
 
@@ -25,14 +25,14 @@ type NoteEdit = {
 }
 
 type NotesState = {
-  notes: Note[];
+  notes: NoteType[];
   searchValue: string;
-  filteredNotes: Note[];
-  selectedNote: Note;
+  filteredNotes: NoteType[];
+  selectedNote: NoteType;
   selectedField: string;
 };
 
-const defaultNote: Note = { id: '', title: '', content: '' };
+const defaultNote: NoteType = { id: '', title: '', content: '' };
 const initialState: NotesState = {
   notes: [],
   searchValue: '',
@@ -45,11 +45,12 @@ const notesSlice = createSlice({
   name: 'notes',
   initialState,
   reducers: {
-    addNote(state, action: PayloadAction<Note>) {
+    addNote(state, action: PayloadAction<NoteType>) {
       const { id, title, content } = action.payload;
       state.notes.push({ id, title, content });
+      window.localStorage.setItem('notes-react', JSON.stringify(state.notes));
     },
-    saveNote(state, action: PayloadAction<Note>) {
+    saveNote(state, action: PayloadAction<NoteType>) {
       const { id, title, content } = action.payload;
       const noteToSave = state.notes.find(note => note.id === id);
       if (!noteToSave) { return; }
@@ -58,6 +59,10 @@ const notesSlice = createSlice({
       noteToSave.content = content;
       state.selectedNote = { ...defaultNote };
       state.selectedField = '';
+      window.localStorage.setItem('notes-react', JSON.stringify(state.notes));
+    },
+    setNotes(state, action: PayloadAction<NoteType[]>) {
+      state.notes = action.payload;
     },
     onSearchValueChange(state, action: PayloadAction<SearchValue>) {
       state.searchValue = action.payload.searchValue;
@@ -65,6 +70,7 @@ const notesSlice = createSlice({
     onDeleteNote(state, action: PayloadAction<DeleteNote>) {
       const { noteId } = action.payload;
       state.notes = state.notes.filter(note => note.id !== noteId);
+      window.localStorage.setItem('notes-react', JSON.stringify(state.notes));
     },
     onEditNote(state, action: PayloadAction<EditNote>) {
       state.selectedNote = action.payload.note;
@@ -84,6 +90,7 @@ const notesSlice = createSlice({
 export const {
   addNote,
   saveNote,
+  setNotes,
   onSearchValueChange,
   onDeleteNote,
   onEditNote,
